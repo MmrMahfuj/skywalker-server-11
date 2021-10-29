@@ -43,6 +43,16 @@ async function run() {
             res.json(travelPlace);
         })
 
+        // GET Email Travel places
+        app.get('/travelPlaces/:email', async (req, res) => {
+            const reqEmail = req.params.email,
+            const travelPlaces = await travelPlaceCollection.find({
+                email: reqEmail
+            }).toArray();
+            res.json(travelPlaces);
+        });
+
+
         //POST API
         app.post('/travelPlaces', async (req, res) => {
 

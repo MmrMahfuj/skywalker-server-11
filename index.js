@@ -44,13 +44,13 @@ async function run() {
         })
 
         // GET Email Travel places
-        /*  app.get('/travelPlaces/:email', async (req, res) => {
-             const reqEmail = req.params.email,
-             const travelPlaces = await travelPlaceCollection.find({
-                 email: reqEmail
-             }).toArray();
-             res.json(travelPlaces);
-         }); */
+        app.get('/travelPlaces/:email', async (req, res) => {
+
+            const travelPlaces = await travelPlaceCollection.find({
+                email: req.params.email,
+            }).toArray();
+            res.send(travelPlaces);
+        });
 
 
         //POST API

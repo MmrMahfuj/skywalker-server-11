@@ -67,7 +67,7 @@ async function run() {
             const result = await travelPlaceCollection.updateOne(filter, updateDoc, options)
 
 
-            console.log('updating user', id);
+
             res.json(result);
         })
 

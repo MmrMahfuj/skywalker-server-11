@@ -25,6 +25,7 @@ async function run() {
         await client.connect();
         const database = client.db('SkyWalker');
         const travelPlaceCollection = database.collection('travelPlaces');
+        const bookingCollection = database.collection('bookings');
 
         //GET API
         app.get('/travelPlaces', async (req, res) => {
@@ -38,17 +39,26 @@ async function run() {
         app.get('/travelPlaces/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
-            const service = await travelPlaceCollection.findOne(query)
-            res.json(service);
+            const travelPlace = await travelPlaceCollection.findOne(query)
+            res.json(travelPlace);
         })
 
         //POST API
         app.post('/travelPlaces', async (req, res) => {
 
             const travelPlace = req.body;
-            console.log('hit the post api',);
+            // console.log('hit the post api',);
 
             const result = await travelPlaceCollection.insertOne(travelPlace);
+            console.log(result);
+            res.json(result);
+        })
+
+        // Booking post api
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body;
+
+            const result = await bookingCollection.insertOne(booking);
             console.log(result);
             res.json(result);
         })

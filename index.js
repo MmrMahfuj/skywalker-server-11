@@ -34,8 +34,8 @@ async function run() {
 
         })
 
-        //GET Single Service
-        app.get('/services/:id', async (req, res) => {
+        //GET Single travelPlace
+        app.get('/travelPlaces/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const service = await travelPlaceCollection.findOne(query)
@@ -54,7 +54,7 @@ async function run() {
         })
 
         //DELETE API
-        app.delete('/services/:id', async (req, res) => {
+        app.delete('/travelPlaces/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await travelPlaceCollection.deleteOne(query);

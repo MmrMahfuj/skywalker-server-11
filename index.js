@@ -37,6 +37,7 @@ async function run() {
 
         //GET Single travelPlace
         app.get('/travelPlaces/:id', async (req, res) => {
+            console.log("thi the id");
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const travelPlace = await travelPlaceCollection.findOne(query)
@@ -44,8 +45,7 @@ async function run() {
         })
 
         // GET Email Travel places
-        app.get('/travelPlaces/:email', async (req, res) => {
-
+        app.get('/emailTravelPlaces/:email', async (req, res) => {
             const travelPlaces = await travelPlaceCollection.find({
                 email: req.params.email,
             }).toArray();

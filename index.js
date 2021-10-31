@@ -64,7 +64,7 @@ async function run() {
         });
 
 
-        //POST API
+        //POST API Travel Place
         app.post('/travelPlaces', async (req, res) => {
 
             const travelPlace = req.body;
@@ -113,7 +113,7 @@ async function run() {
 
         //DELETE API bookings
         app.delete('/deleteBookings/:id', async (req, res) => {
-            console.log('hitted the api');
+            // console.log('hitted the api');
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await bookingCollection.deleteOne(query);

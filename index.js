@@ -27,13 +27,24 @@ async function run() {
         const travelPlaceCollection = database.collection('travelPlaces');
         const bookingCollection = database.collection('bookings');
 
-        //GET API
+        //GET API all travel places
         app.get('/travelPlaces', async (req, res) => {
             const cursor = travelPlaceCollection.find({});
             const travelPlaces = await cursor.toArray();
             res.send(travelPlaces);
 
         })
+
+
+        //GET API all bookings
+        app.get('/bookings', async (req, res) => {
+
+            const cursor = bookingCollection.find({});
+            const bookings = await cursor.toArray();
+            res.send(bookings);
+
+        })
+
 
         //GET Single travelPlace
         app.get('/travelPlaces/:id', async (req, res) => {
@@ -44,9 +55,9 @@ async function run() {
             res.json(travelPlace);
         })
 
-        // GET Email Travel places
+        // GET Email Bookings places
         app.get('/emailTravelPlaces/:email', async (req, res) => {
-            const travelPlaces = await travelPlaceCollection.find({
+            const travelPlaces = await bookingCollection.find({
                 email: req.params.email,
             }).toArray();
             res.send(travelPlaces);
@@ -73,8 +84,8 @@ async function run() {
             res.json(result);
         })
 
-        // update Status
-        app.put('/travelPlaces/:id', async (req, res) => {
+        // update Status Bookings
+        app.put('/statusBookings/:id', async (req, res) => {
             const id = req.params.id;
             const updateStatus = req.body;
             const filter = { _id: ObjectId(id) };
@@ -84,18 +95,28 @@ async function run() {
                     status: updateStatus.status,
                 },
             };
-            const result = await travelPlaceCollection.updateOne(filter, updateDoc, options)
+            const result = await bookingCollection.updateOne(filter, updateDoc, options)
 
 
 
             res.json(result);
         })
 
-        //DELETE API
+        //DELETE API travel place
         app.delete('/travelPlaces/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await travelPlaceCollection.deleteOne(query);
+            console.log(result);
+            res.json(result);
+        })
+
+        //DELETE API bookings
+        app.delete('/deleteBookings/:id', async (req, res) => {
+            console.log('hitted the api');
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await bookingCollection.deleteOne(query);
             console.log(result);
             res.json(result);
         })
